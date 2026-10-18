@@ -1,0 +1,12 @@
+{
+  "estado": "APROBADO",
+  "pruebas": [
+    "1704 filas, 142 países, 1952-2007",
+    "CSV con columna faltante, negativos, vacío y año fraccionario rechazados",
+    "Formulario no aplica cambios hasta enviar",
+    "Europe: 30 países",
+    "Selección incompatible muestra aviso sin excepción",
+    "Restablecer recupera 142 países"
+  ],
+  "prueba_cruzada_humana": "PENDIENTE"
+}

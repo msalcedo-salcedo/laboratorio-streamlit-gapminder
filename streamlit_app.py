@@ -117,7 +117,7 @@ def dashboard():
         c1, c2, c3, c4 = st.columns(4)
         c1.metric('Países', actual.country.nunique())
         c2.metric('Esperanza de vida', f'{actual.lifeExp.mean():.1f} años', f'{actual.lifeExp.mean()-initial.lifeExp.mean():+.1f} años vs. {first}')
-        c3.metric('Población', f'{actual["pop"].sum()/1e9:.2f} mil millones')
+        c3.metric('Población (mil millones)', f'{actual["pop"].sum()/1e9:.2f}')
         c4.metric('PIB per cápita medio', f'USD {actual.gdpPercap.mean():,.0f}')
     with st.expander('Ver definición de los KPI'):
         st.write('Países: número de países del último año. Esperanza de vida y PIB per cápita: media aritmética de países, sin ponderar. Población: suma en ese año. El delta compara las medias del último y primer año del filtro; si cambia la cobertura, también puede cambiar la composición de países.')
@@ -128,6 +128,7 @@ def dashboard():
                          title=f'Ingreso y esperanza de vida por país · {last}')
         fig.update_layout(height=440, margin=dict(t=65, b=30))
         st.plotly_chart(fig, use_container_width=True)
+        st.caption('Ejecución verificada: ' + now.strftime('%d/%m/%Y %H:%M:%S') + ' · America/Lima. Estudiante: Medalit Nieves Salcedo Rodriguez.')
         st.caption('Cada burbuja es un país; su tamaño representa población. El eje del ingreso es logarítmico. La asociación observada no demuestra causalidad.')
     with trend:
         top = actual.nlargest(8, 'pop').country.tolist()
@@ -138,6 +139,7 @@ def dashboard():
             color=alt.Color('country:N', title='País'), tooltip=['country:N', 'year:O', alt.Tooltip('lifeExp:Q', format='.1f')]
         ).properties(height=400, title='Evolución de la esperanza de vida')
         st.altair_chart(chart, use_container_width=True)
+        st.caption('Ejecución verificada: ' + now.strftime('%d/%m/%Y %H:%M:%S') + ' · America/Lima.')
     with table:
         st.caption(f'{len(filtered):,} registros país-año después de aplicar los filtros.')
         st.dataframe(filtered.drop(columns='date'), hide_index=True, use_container_width=True)
